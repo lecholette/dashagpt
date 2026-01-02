@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}DashaGPT - AI-Powered Vedic Astrology{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Discover your Vedic birth chart and personalized predictions with AI-powered insights.{% endblock %}">
+    <title>{% block title %}Vedic Astrology GPT - AI Birth Chart Analysis | DashaGPT{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Chat with DashaGPT, your AI Vedic Astrology expert. Get instant birth chart analysis, Dasha predictions, relationship compatibility, and personalized remedies. Free to start.{% endblock %}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical %}https://dashagpt.com/{% endblock %}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}Vedic Astrology GPT | AI-Powered Birth Chart Conversations{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Chat with an AI expert in Vedic astrology. Get personalized insights on your birth chart, dasha periods, and life predictions through natural conversation.{% endblock %}">
+    <meta property="og:image" content="https://dashagpt.com/static/images/hero/vedic-astrology-gpt-hero.webp">
+    <meta property="og:url" content="https://dashagpt.com/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vedic Astrology GPT - AI Birth Chart Analysis">
+    <meta name="twitter:description" content="Chat with DashaGPT for personalized Vedic astrology insights through natural conversation.">
+    <meta name="twitter:image" content="https://dashagpt.com/static/images/hero/vedic-astrology-gpt-hero.webp">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,44 +36,87 @@
     </script>
     {% endif %}
 
+    <!-- Schema Markup -->
+    {% block schema %}{% endblock %}
+
+    <style>
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        .sr-only:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            padding: 0.5rem 1rem;
+            margin: 0;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+            z-index: 9999;
+        }
+    </style>
+
     {% block head %}{% endblock %}
 </head>
 <body class="bg-gray-50">
-    <nav class="bg-white shadow-sm">
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-white focus:text-indigo-600 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:z-50">
+        Skip to main content
+    </a>
+    <nav class="bg-white shadow-sm" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="/" class="text-2xl font-bold text-indigo-600">DashaGPT</a>
+                    <a href="/" class="text-2xl font-bold text-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded">DashaGPT</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="/calculator" class="text-gray-700 hover:text-indigo-600">Calculator</a>
-                    <a href="/about" class="text-gray-700 hover:text-indigo-600">About</a>
+                    <a href="/calculator" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Calculator</a>
+                    <a href="/about" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">About</a>
+                    <a href="/chat" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Start Chat</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main>
+    <main id="main-content" role="main">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-gray-800 text-white mt-16">
+    <footer class="bg-gray-800 text-white mt-16" role="contentinfo">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-lg font-semibold mb-4">DashaGPT</h3>
                     <p class="text-gray-400">AI-powered Vedic astrology insights</p>
+                    <p class="mt-4 text-sm text-gray-500">Part of the <a href="https://dashaclub.com" class="text-gold-400 hover:text-gold-300 underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-400" target="_blank" rel="noopener">DashaClub</a> family</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Links</h3>
+                    <h3 class="text-lg font-semibold mb-4">Learn Vedic Astrology</h3>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
-                        <li><a href="/terms" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="https://dashaclub.com/learn" class="hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:text-white py-1" target="_blank" rel="noopener">Free Learning Guides</a></li>
+                        <li><a href="https://dashaclub.com/learn/dasha-periods" class="hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:text-white py-1" target="_blank" rel="noopener">Understanding Dashas</a></li>
+                        <li><a href="https://dashaclub.com/reading" class="hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:text-white py-1" target="_blank" rel="noopener">Get a Full Reading</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/privacy" class="hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:text-white py-1">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:text-white py-1">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Contact</h3>
-                    <p class="text-gray-400">support@dashagpt.com</p>
+                    <p class="text-gray-400"><a href="mailto:support@dashagpt.com" class="hover:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:text-white">support@dashagpt.com</a></p>
                 </div>
             </div>
             <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
