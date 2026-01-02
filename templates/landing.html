@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}DashaGPT - AI-Powered Vedic Astrology Birth Charts{% endblock %}
+
+{% block content %}
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="text-center">
+            <h1 class="text-5xl font-bold mb-6">
+                Discover Your Vedic Birth Chart
+            </h1>
+            <p class="text-xl mb-8 text-indigo-100">
+                AI-powered personalized insights into your life's path
+            </p>
+            <a href="/calculator" class="bg-white text-indigo-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition">
+                Get Your Free Chart
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="text-indigo-600 text-4xl mb-4">🌟</div>
+            <h3 class="text-xl font-semibold mb-3">Accurate Calculations</h3>
+            <p class="text-gray-600">Precise Vedic astrology calculations using Swiss Ephemeris</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="text-indigo-600 text-4xl mb-4">🤖</div>
+            <h3 class="text-xl font-semibold mb-3">AI-Powered Insights</h3>
+            <p class="text-gray-600">Personalized interpretations powered by advanced AI</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="text-indigo-600 text-4xl mb-4">📊</div>
+            <h3 class="text-xl font-semibold mb-3">Comprehensive Reports</h3>
+            <p class="text-gray-600">Detailed PDF reports with life predictions and timing</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
