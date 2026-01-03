@@ -7,7 +7,7 @@ Flask-Compress==1.15.0
 Flask-CORS==4.0.0
 
 # Vedic Astrology & Calculations
-pyswisseph==2.10.0
+pyswisseph==2.10.3.2
 pytz==2024.1
 timezonefinder==6.0.0
 
