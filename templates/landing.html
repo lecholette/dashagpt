@@ -56,20 +56,29 @@
         theme: {
             extend: {
                 colors: {
-                    cosmic: {
-                        900: '#0f0a1f',
-                        800: '#1e1b4b',
-                        700: '#312e81',
-                        600: '#4c1d95',
+                    plum: {
+                        900: '#1A1035',
+                        800: '#2D1B4E',
+                        700: '#3D2563',
                     },
                     gold: {
-                        500: '#f59e0b',
-                        400: '#fbbf24',
-                        300: '#fcd34d',
-                    }
+                        DEFAULT: '#D4AF37',
+                        dark: '#B8860B',
+                        light: '#E5C158',
+                    },
+                    saffron: {
+                        DEFAULT: '#FF9933',
+                        light: '#FFB366',
+                    },
+                    terracotta: {
+                        DEFAULT: '#CE5937',
+                        dark: '#B85C38',
+                    },
+                    burgundy: '#5C1A3D',
+                    ivory: '#FFF8E7',
                 },
                 fontFamily: {
-                    'display': ['Playfair Display', 'Georgia', 'serif'],
+                    'display': ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
                     'body': ['Inter', 'sans-serif'],
                 }
             }
@@ -78,117 +87,153 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-    .star-pattern {
-        background-image: radial-gradient(2px 2px at 20% 30%, rgba(251, 191, 36, 0.3), transparent),
-                          radial-gradient(2px 2px at 60% 70%, rgba(251, 191, 36, 0.2), transparent),
-                          radial-gradient(1px 1px at 50% 50%, rgba(251, 191, 36, 0.25), transparent),
-                          radial-gradient(1px 1px at 80% 10%, rgba(251, 191, 36, 0.2), transparent),
-                          radial-gradient(2px 2px at 90% 60%, rgba(251, 191, 36, 0.15), transparent),
-                          radial-gradient(1px 1px at 33% 85%, rgba(251, 191, 36, 0.2), transparent),
-                          radial-gradient(1px 1px at 15% 75%, rgba(251, 191, 36, 0.15), transparent);
-        background-size: 200% 200%;
-        animation: shimmer 20s ease-in-out infinite;
+    /* Parchment Texture Overlay */
+    .parchment-texture {
+        background-image:
+            radial-gradient(circle at 20% 50%, rgba(255, 248, 231, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 248, 231, 0.03) 0%, transparent 50%),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        background-blend-mode: overlay;
     }
 
+    /* Subtle Shimmer Animation */
     @keyframes shimmer {
-        0%, 100% { background-position: 0% 0%; }
-        50% { background-position: 100% 100%; }
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
     }
 
-    .glow-text {
-        text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+    .shimmer {
+        animation: shimmer 3s ease-in-out infinite;
     }
 
-    .conversation-card {
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(251, 191, 36, 0.2);
+    /* Gold Foil Gradient */
+    .gold-foil {
+        background: linear-gradient(135deg, #D4AF37 0%, #E5C158 25%, #B8860B 50%, #D4AF37 75%, #E5C158 100%);
+        background-size: 200% 200%;
+        animation: gold-shine 4s ease infinite;
     }
 
-    .feature-icon {
-        background: linear-gradient(135deg, rgba(76, 29, 149, 0.3) 0%, rgba(49, 46, 129, 0.3) 100%);
-        border: 2px solid rgba(251, 191, 36, 0.4);
+    @keyframes gold-shine {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+
+    /* Soft Glow */
+    .text-glow {
+        text-shadow:
+            0 0 20px rgba(212, 175, 55, 0.3),
+            0 0 40px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Decorative Border */
+    .temple-border {
+        border: 2px solid;
+        border-image: linear-gradient(135deg, #D4AF37, #E5C158, #D4AF37) 1;
+        box-shadow:
+            0 0 20px rgba(212, 175, 55, 0.2),
+            inset 0 0 20px rgba(212, 175, 55, 0.1);
+    }
+
+    /* Rounded Organic Shapes */
+    .organic-card {
+        border-radius: 1.5rem;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .organic-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Mandala Divider */
+    .mandala-divider {
+        background-image: url("{{ url_for('static', filename='images/decorative/mandala-divider.webp') }}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100px;
+        opacity: 0.4;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<section class="relative bg-gradient-to-br from-cosmic-900 via-cosmic-800 to-cosmic-700 text-white overflow-hidden star-pattern" aria-labelledby="hero-heading">
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cosmic-900 opacity-60"></div>
+<section class="relative bg-gradient-to-br from-plum-900 via-plum-800 to-burgundy text-ivory overflow-hidden parchment-texture" aria-labelledby="hero-heading">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-plum-900 opacity-60"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Left: Text Content -->
             <div class="text-center lg:text-left space-y-6">
                 <div class="inline-block">
-                    <span class="text-gold-400 text-sm font-semibold tracking-wider uppercase mb-2 block">Powered by DashaClub</span>
+                    <span class="text-saffron text-sm font-semibold tracking-widest uppercase mb-2 block shimmer">Powered by DashaClub</span>
                 </div>
 
-                <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight glow-text">
+                <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight text-glow" style="letter-spacing: 0.02em;">
                     Your Personal<br>
-                    <span class="text-gold-400">Vedic Astrology GPT</span>
+                    <span class="text-gold">Vedic Astrology GPT</span>
                 </h1>
 
-                <p class="text-lg md:text-xl text-gray-300 font-light max-w-xl mx-auto lg:mx-0">
-                    Have a conversation with an AI that understands your birth chart, planetary periods, and life patterns. Get personalized Vedic astrology insights through natural dialogue.
+                <p class="text-lg md:text-xl text-gray-200 font-light max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Consult the ancient wisdom of Vedic Jyotish through sacred conversations. Our AI understands your cosmic blueprint, planetary periods, and life patterns with reverence and precision.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                     <a href="/chat"
-                       class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-cosmic-900 bg-gold-400 rounded-lg overflow-hidden transition-all duration-300 hover:bg-gold-300 hover:scale-105 hover:shadow-2xl hover:shadow-gold-500/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-400"
-                       onclick="gtag('event', 'cta_click', {'cta_location': 'hero', 'cta_text': 'Ask Your First Question'});">
-                        <span class="relative z-10">Ask Your First Question</span>
+                       class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-plum-900 gold-foil rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold temple-border"
+                       onclick="gtag('event', 'cta_click', {'cta_location': 'hero', 'cta_text': 'Consult the Heavens'});">
+                        <span class="relative z-10">Consult the Heavens</span>
                         <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </a>
 
-                    <a href="#how-it-works"
-                       class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gold-400 border-2 border-gold-400 rounded-lg hover:bg-gold-400/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-400">
-                        How It Works
+                    <a href="#wisdom-meets-precision"
+                       class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-gold border-2 border-gold rounded-2xl hover:bg-gold/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold">
+                        Explore Sacred Features
                     </a>
                 </div>
 
-                <!-- CTA Supporting Copy -->
-                <p class="text-sm text-gray-300 text-center lg:text-left">
-                    Free. No sign-up required. Instant insights.
-                </p>
-
-                <div class="flex items-center justify-center lg:justify-start gap-8 pt-6 text-sm text-gray-400">
+                <!-- Trust Indicators -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 pt-6 text-sm text-gray-300">
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-5 h-5 text-saffron shimmer" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        Accurate Calculations
+                        <span>Swiss Ephemeris Precision</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-5 h-5 text-saffron shimmer" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        Personalized Insights
+                        <span>Sacred Privacy Protected</span>
                     </div>
                 </div>
+
+                <p class="text-xs text-gray-400 text-center lg:text-left italic">
+                    "Ancient wisdom, validated by modern precision"
+                </p>
             </div>
 
-            <!-- Right: Hero Image -->
+            <!-- Right: Kundali Image -->
             <div class="relative">
-                <div class="conversation-card rounded-2xl p-1 shadow-2xl shadow-gold-500/20">
-                    <img src="{{ url_for('static', filename='images/hero/vedic-astrology-gpt-hero.webp') }}"
-                         alt="Vedic astrology birth chart with AI-powered analysis showing planetary positions and astrological insights"
-                         class="rounded-xl w-full h-auto"
+                <div class="temple-border organic-card p-2 shadow-2xl">
+                    <img src="{{ url_for('static', filename='images/hero/vedic-kundali-sacred.webp') }}"
+                         alt="Traditional South Indian Vedic birth chart (Kundali) with golden illuminated houses, Sanskrit numerals, and temple-inspired ornate borders on parchment background"
+                         class="rounded-2xl w-full h-auto"
                          loading="eager">
                 </div>
 
-                <!-- Floating conversation preview -->
-                <div class="hidden lg:block absolute -bottom-6 -left-6 conversation-card rounded-xl p-4 max-w-xs shadow-xl">
+                <!-- Floating Wisdom Quote -->
+                <div class="hidden lg:block absolute -bottom-6 -left-6 bg-plum-800/90 temple-border organic-card p-6 max-w-sm shadow-2xl backdrop-blur-sm">
                     <div class="flex items-start gap-3">
-                        <div class="w-2 h-2 bg-gold-400 rounded-full mt-2 flex-shrink-0 animate-pulse"></div>
+                        <div class="w-2 h-2 bg-saffron rounded-full mt-2 flex-shrink-0 shimmer"></div>
                         <div>
-                            <p class="text-sm text-gray-300 mb-1 font-medium">AI Vedic Astrologer</p>
-                            <p class="text-xs text-gray-400">Your Saturn is in the 10th house, indicating a strong karmic focus on career and public recognition...</p>
+                            <p class="text-sm text-ivory mb-1 font-medium font-display">Ancient Jyotish Wisdom</p>
+                            <p class="text-xs text-gray-300 italic">"As above, so below. The stars reveal the patterns woven into your soul's journey..."</p>
                         </div>
                     </div>
                 </div>
@@ -197,234 +242,243 @@
     </div>
 </section>
 
-<!-- What Can I Ask Section -->
-<section id="how-it-works" class="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="features-heading">
+<!-- Mandala Divider -->
+<div class="mandala-divider my-8"></div>
+
+<!-- Sacred Features Section -->
+<section id="wisdom-meets-precision" class="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="features-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 id="features-heading" class="text-3xl md:text-4xl font-display font-bold text-cosmic-900 mb-4">
-                What Can You Ask Your Vedic Astrology GPT?
+            <h2 id="features-heading" class="text-3xl md:text-4xl font-display font-bold text-plum-900 mb-4" style="letter-spacing: 0.02em;">
+                Sacred Consultations Through AI
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Have natural conversations about your life path, timing, and potential. Our AI understands Vedic astrology deeply.
+                Ask the cosmos about your path. Our AI understands Vedic astrology deeply, offering insights with the reverence of ancient rishis and the precision of modern astronomy.
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Feature 1: Birth Chart Analysis -->
-            <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gold-400/30">
-                <div class="feature-icon w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Feature 1: Birth Chart (Janma Kundali) -->
+            <div class="group bg-white organic-card p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-gold/30">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700/20 to-plum-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border-2 border-gold/40">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-display font-semibold text-cosmic-900 mb-3">Birth Chart Analysis</h3>
-                <p class="text-gray-600 mb-4">
-                    "What does my birth chart say about my personality?" Get insights into your planetary placements, house positions, and chart patterns.
+                <h3 class="text-xl font-display font-semibold text-plum-900 mb-3">Janma Kundali Analysis</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    "What does my birth chart reveal?" Receive divine insights into your Lagna, Chandra rashi, planetary placements, and yogas that shape your destiny.
                 </p>
-                <p class="text-sm text-gold-600 font-medium">Ask about: Ascendant, Moon sign, planetary dignities, yogas</p>
+                <p class="text-sm text-saffron font-medium">Ascendant • Moon Sign • Planetary Dignities • Sacred Yogas</p>
             </div>
 
-            <!-- Feature 2: Dasha Predictions -->
-            <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gold-400/30">
-                <div class="feature-icon w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Feature 2: Dasha Periods -->
+            <div class="group bg-white organic-card p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-gold/30">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700/20 to-plum-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border-2 border-gold/40">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-display font-semibold text-cosmic-900 mb-3">Dasha Predictions</h3>
-                <p class="text-gray-600 mb-4">
-                    "When will my career take off?" Understand your current and upcoming planetary periods (Mahadasha, Antardasha, Pratyantardasha).
+                <h3 class="text-xl font-display font-semibold text-plum-900 mb-3">Dasha Period Revelations</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    "When will fortune smile upon me?" Understand your planetary periods—Mahadasha, Antardasha, and Pratyantardasha—and the divine timing they reveal.
                 </p>
-                <p class="text-sm text-gold-600 font-medium">Ask about: Current dasha, timing of events, favorable periods</p>
+                <p class="text-sm text-saffron font-medium">Current Dasha • Favorable Periods • Karmic Timing</p>
             </div>
 
-            <!-- Feature 3: Relationship Compatibility -->
-            <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gold-400/30">
-                <div class="feature-icon w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Feature 3: Relationship Sacred Bonds -->
+            <div class="group bg-white organic-card p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-gold/30">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700/20 to-plum-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border-2 border-gold/40">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-display font-semibold text-cosmic-900 mb-3">Relationship Compatibility</h3>
-                <p class="text-gray-600 mb-4">
-                    "Are we compatible?" Explore synastry, marriage compatibility, and relationship timing through Vedic compatibility analysis.
+                <h3 class="text-xl font-display font-semibold text-plum-900 mb-3">Sacred Relationship Bonds</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    "Are our souls aligned?" Explore synastry, Ashtakuta compatibility, and the 7th house wisdom that guides partnerships destined by the stars.
                 </p>
-                <p class="text-sm text-gold-600 font-medium">Ask about: Synastry, kuta matching, 7th house analysis</p>
+                <p class="text-sm text-saffron font-medium">Guna Milan • Synastry • Marriage Timing</p>
             </div>
 
-            <!-- Feature 4: Career Guidance -->
-            <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gold-400/30">
-                <div class="feature-icon w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Feature 4: Dharma & Career -->
+            <div class="group bg-white organic-card p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-gold/30">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700/20 to-plum-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border-2 border-gold/40">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-display font-semibold text-cosmic-900 mb-3">Career Guidance</h3>
-                <p class="text-gray-600 mb-4">
-                    "What career path suits me best?" Discover your professional strengths through 10th house analysis and planetary influences.
+                <h3 class="text-xl font-display font-semibold text-plum-900 mb-3">Dharma & Life Purpose</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    "What is my true calling?" Discover your righteous path through 10th house analysis, planetary strengths, and alignment with your soul's dharma.
                 </p>
-                <p class="text-sm text-gold-600 font-medium">Ask about: Best career fields, business vs job, promotion timing</p>
+                <p class="text-sm text-saffron font-medium">Career Path • Business Timing • Life Mission</p>
             </div>
 
-            <!-- Feature 5: Remedial Measures -->
-            <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gold-400/30">
-                <div class="feature-icon w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Feature 5: Remedial Upāyas -->
+            <div class="group bg-white organic-card p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-gold/30">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700/20 to-plum-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border-2 border-gold/40">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-display font-semibold text-cosmic-900 mb-3">Remedial Measures</h3>
-                <p class="text-gray-600 mb-4">
-                    "What remedies can help me?" Receive personalized recommendations for gemstones, mantras, rituals, and charitable actions.
+                <h3 class="text-xl font-display font-semibold text-plum-900 mb-3">Sacred Remedial Upāyas</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    "How do I harmonize my energies?" Receive personalized Vedic remedies—ratnas (gemstones), mantras, vratams (fasts), and charitable acts aligned with your chart.
                 </p>
-                <p class="text-sm text-gold-600 font-medium">Ask about: Gemstone recommendations, mantras, best worship days</p>
+                <p class="text-sm text-saffron font-medium">Gemstones • Mantras • Sacred Days • Charity</p>
             </div>
 
-            <!-- Feature 6: Life Timing -->
-            <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gold-400/30">
-                <div class="feature-icon w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Feature 6: Muhurta & Timing -->
+            <div class="group bg-white organic-card p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-gold/30">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700/20 to-plum-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border-2 border-gold/40">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-display font-semibold text-cosmic-900 mb-3">Timing & Transits</h3>
-                <p class="text-gray-600 mb-4">
-                    "When is the best time to start a business?" Understand current transits, favorable periods, and challenging phases.
+                <h3 class="text-xl font-display font-semibold text-plum-900 mb-3">Muhurta & Divine Timing</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    "When should I begin?" Understand auspicious periods, transits (Gochar), and electional astrology for marriage, ventures, and sacred beginnings.
                 </p>
-                <p class="text-sm text-gold-600 font-medium">Ask about: Marriage timing, relocation, investment periods</p>
+                <p class="text-sm text-saffron font-medium">Marriage Timing • Ventures • Auspicious Periods</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- How It Works -->
-<section class="py-16 md:py-24 bg-cosmic-900 text-white star-pattern">
+<!-- Mandala Divider -->
+<div class="mandala-divider my-8"></div>
+
+<!-- Ancient Wisdom Meets Modern Precision -->
+<section class="py-16 md:py-24 bg-gradient-to-br from-plum-900 via-plum-800 to-burgundy text-ivory parchment-texture" aria-labelledby="wisdom-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-                <h2 class="text-3xl md:text-4xl font-display font-bold mb-6 glow-text">
-                    Ancient Wisdom Meets Modern AI
+                <h2 id="wisdom-section" class="text-3xl md:text-4xl font-display font-bold mb-6 text-glow" style="letter-spacing: 0.02em;">
+                    Ancient Wisdom Meets Modern Precision
                 </h2>
-                <p class="text-lg text-gray-300 mb-8">
-                    DashaGPT combines traditional Vedic astrology calculations with cutting-edge AI to provide you with personalized, conversational insights into your life path.
+                <p class="text-lg text-gray-200 mb-8 leading-relaxed">
+                    DashaGPT honors the sacred tradition of Vedic Jyotish, combining millennia-old wisdom with Swiss Ephemeris astronomical precision. Each consultation is a bridge between the timeless and the contemporary.
                 </p>
 
                 <div class="space-y-6">
                     <div class="flex gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-10 h-10 bg-gold-400/20 rounded-full flex items-center justify-center border border-gold-400">
-                                <span class="text-gold-400 font-bold">1</span>
+                            <div class="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center border border-gold">
+                                <span class="text-gold font-bold font-display">1</span>
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Share Your Birth Details</h3>
-                            <p class="text-gray-400">Simply tell the AI your birth date, time, and place through natural conversation.</p>
+                            <h3 class="text-xl font-semibold mb-2 font-display">Share Your Birth Details</h3>
+                            <p class="text-gray-300">Provide your sacred birth information—date, time, place—through natural conversation with reverence and privacy.</p>
                         </div>
                     </div>
 
                     <div class="flex gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-10 h-10 bg-gold-400/20 rounded-full flex items-center justify-center border border-gold-400">
-                                <span class="text-gold-400 font-bold">2</span>
+                            <div class="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center border border-gold">
+                                <span class="text-gold font-bold font-display">2</span>
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">AI Analyzes Your Chart</h3>
-                            <p class="text-gray-400">Our AI calculates your precise Vedic birth chart using Swiss Ephemeris data.</p>
+                            <h3 class="text-xl font-semibold mb-2 font-display">Divine Calculations Unfold</h3>
+                            <p class="text-gray-300">Our AI generates your precise Vedic Kundali using Swiss Ephemeris data, ensuring astronomical accuracy to the second.</p>
                         </div>
                     </div>
 
                     <div class="flex gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-10 h-10 bg-gold-400/20 rounded-full flex items-center justify-center border border-gold-400">
-                                <span class="text-gold-400 font-bold">3</span>
+                            <div class="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center border border-gold">
+                                <span class="text-gold font-bold font-display">3</span>
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Get Personalized Insights</h3>
-                            <p class="text-gray-400">Ask anything about your life, timing, relationships, or career - get instant, personalized answers.</p>
+                            <h3 class="text-xl font-semibold mb-2 font-display">Receive Sacred Insights</h3>
+                            <p class="text-gray-300">Ask any question about your path, timing, relationships, or purpose. Receive wisdom-filled, personalized answers instantly.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="conversation-card rounded-2xl p-1 shadow-2xl shadow-gold-500/20">
+            <div class="temple-border organic-card p-2 shadow-2xl">
                 <img src="{{ url_for('static', filename='images/hero/conversation-interface.webp') }}"
-                     alt="AI conversation interface showing personalized Vedic astrology insights with birth chart visualization"
-                     class="rounded-xl w-full h-auto"
+                     alt="Sacred conversation interface showing AI-powered Vedic astrology insights with traditional Kundali visualization and respectful dialogue"
+                     class="rounded-2xl w-full h-auto"
                      loading="lazy">
             </div>
         </div>
     </div>
 </section>
 
-<!-- Trust Signals -->
-<section class="py-16 md:py-24 bg-white">
+<!-- Mandala Divider -->
+<div class="mandala-divider my-8"></div>
+
+<!-- Trust & Authenticity -->
+<section class="py-16 md:py-24 bg-white" aria-labelledby="trust-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-display font-bold text-cosmic-900 mb-4">
-                Trusted Vedic Astrology Technology
+            <h2 id="trust-section" class="text-3xl md:text-4xl font-display font-bold text-plum-900 mb-4" style="letter-spacing: 0.02em;">
+                Ancient Wisdom, Validated by Modern Precision
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Powered by DashaClub, the leading platform for authentic Vedic astrology insights
+                Trusted by seekers worldwide. Powered by DashaClub's commitment to authentic Vedic astrology and technological excellence.
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center p-8">
-                <div class="w-16 h-16 bg-gradient-to-br from-cosmic-700 to-cosmic-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="text-center p-8 organic-card bg-gray-50 hover:bg-gray-100 transition">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700 to-plum-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-cosmic-900 mb-2">Swiss Ephemeris Accuracy</h3>
-                <p class="text-gray-600">Precise astronomical calculations using the industry-standard Swiss Ephemeris library</p>
+                <h3 class="text-xl font-semibold text-plum-900 mb-2 font-display">Swiss Ephemeris Accuracy</h3>
+                <p class="text-gray-600">Astronomical precision to the second. The same celestial calculations used by master Jyotishis worldwide.</p>
             </div>
 
-            <div class="text-center p-8">
-                <div class="w-16 h-16 bg-gradient-to-br from-cosmic-700 to-cosmic-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="text-center p-8 organic-card bg-gray-50 hover:bg-gray-100 transition">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700 to-plum-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-cosmic-900 mb-2">Privacy Protected</h3>
-                <p class="text-gray-600">Your birth details and conversations are encrypted and never shared with third parties</p>
+                <h3 class="text-xl font-semibold text-plum-900 mb-2 font-display">Sacred Privacy</h3>
+                <p class="text-gray-600">Your birth details and conversations are encrypted. Never shared, always honored with spiritual confidentiality.</p>
             </div>
 
-            <div class="text-center p-8">
-                <div class="w-16 h-16 bg-gradient-to-br from-cosmic-700 to-cosmic-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="text-center p-8 organic-card bg-gray-50 hover:bg-gray-100 transition">
+                <div class="w-16 h-16 bg-gradient-to-br from-plum-700 to-plum-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-cosmic-900 mb-2">Instant Responses</h3>
-                <p class="text-gray-600">Get immediate answers to your questions powered by advanced AI technology</p>
+                <h3 class="text-xl font-semibold text-plum-900 mb-2 font-display">Instant Divine Guidance</h3>
+                <p class="text-gray-600">Receive wisdom-filled answers immediately, powered by advanced AI trained on classical Jyotish texts.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Final CTA -->
-<section class="py-16 md:py-24 bg-gradient-to-br from-cosmic-900 via-cosmic-800 to-cosmic-700 text-white star-pattern" aria-labelledby="final-cta">
+<section class="py-16 md:py-24 bg-gradient-to-br from-plum-900 via-plum-800 to-burgundy text-ivory parchment-texture" aria-labelledby="final-cta">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 id="final-cta" class="text-3xl md:text-5xl font-display font-bold mb-6 glow-text">
-            Ready to Explore Your Cosmic Blueprint?
+        <h2 id="final-cta" class="text-3xl md:text-5xl font-display font-bold mb-6 text-glow" style="letter-spacing: 0.02em;">
+            Ready to Receive Divine Guidance?
         </h2>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Start a conversation with your personal Vedic Astrology GPT and discover insights about your life path, timing, and potential.
+        <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+            Begin your sacred consultation with Vedic Astrology GPT. The cosmos awaits your questions.
         </p>
 
         <a href="/chat"
-           class="inline-flex items-center justify-center px-10 py-5 text-xl font-semibold text-cosmic-900 bg-gold-400 rounded-lg hover:bg-gold-300 hover:scale-105 transition-all duration-300 shadow-2xl shadow-gold-500/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-400"
-           onclick="gtag('event', 'cta_click', {'cta_location': 'footer', 'cta_text': 'Ask Your First Question'});">
-            Ask Your First Question
+           class="inline-flex items-center justify-center px-10 py-5 text-xl font-semibold text-plum-900 gold-foil rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold temple-border"
+           onclick="gtag('event', 'cta_click', {'cta_location': 'footer', 'cta_text': 'Consult the Heavens'});">
+            Consult the Heavens
             <svg class="ml-2 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
         </a>
 
         <p class="mt-6 text-sm text-gray-400">
-            Part of the <a href="https://dashaclub.com" class="text-gold-400 hover:text-gold-300 underline focus:outline-none focus:ring-2 focus:ring-gold-400" target="_blank" rel="noopener">DashaClub</a> family
+            Part of the <a href="https://dashaclub.com" class="text-gold hover:text-gold-light underline focus:outline-none focus:ring-2 focus:ring-gold" target="_blank" rel="noopener">DashaClub</a> sacred family
         </p>
     </div>
 </section>
